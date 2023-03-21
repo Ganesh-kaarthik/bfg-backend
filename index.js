@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
-mongoose.connect(process.env.MONGO_URI);
+mongoose.connect(process.env.MONGO_URI, () => console.log(`CONNECTED TO DATABASE`));
 
 app.get('/', async (req, res) => {
   res.status(200).json({
