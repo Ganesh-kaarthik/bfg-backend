@@ -3,7 +3,7 @@ const cors = require('cors');
 const mongoose = require("mongoose");
 const User = require('./models/User');
 const Post = require('./models/Post');
-const dotenv = require('dotenv').config();
+import * as dotenv from 'dotenv';
 const bcrypt = require('bcryptjs');
 const app = express();
 const jwt = require('jsonwebtoken');
@@ -15,12 +15,13 @@ const fs = require('fs');
 const salt = bcrypt.genSaltSync(10);
 const secret = process.env.SECRET_KEY;
 
+dotenv.config();
 app.use(cors({credentials:true,origin:'https://stirring-salmiakki-c2732b.netlify.app'}));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
-mongoose.connect(process.env.MONGO_URI, () => console.log(`CONNECTED TO DATABASE`));
+mongoose.connect(process.env.MONGO_URI);
 
 app.get('/', async (req, res) => {
   res.status(200).json({
